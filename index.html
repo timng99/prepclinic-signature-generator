@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><title>PrEP Clinic email signature generator</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><title>PrEP Clinic Gmail Signature Generator</title>
 <style>
 :root{--bg:#f3f6fa;--panel:#fff;--ink:#1e4a7e;--text:#22303f;--muted:#5b6b7d;--line:#d6e0ea;--err:#b3261e;--ok:#17653a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1620;--panel:#18222e;--ink:#9cc9ee;--text:#e6edf5;--muted:#a3b1c0;--line:#2b3846;--err:#ff8a80;--ok:#7bd89a;color-scheme:dark}}
@@ -27,17 +27,17 @@ button{font:inherit;font-weight:bold;color:#fff;background:#1e4a7e;border:0;bord
 #cnt{font-size:12px;color:var(--muted);margin-left:auto}
 ol{margin:8px 0 0;padding-left:20px;font-size:13px;color:var(--muted)}
 </style></head><body>
-<header><h1>Email signature generator</h1><p>Fill in your details, check the preview, then copy it into Gmail.</p></header>
+<header><h1>PrEP Clinic Gmail Signature Generator</h1><p>Fill in your details, check the preview, then copy it into Gmail.</p></header>
 <main>
 <section aria-labelledby="fh"><h2 id="fh">Your details</h2>
-<div class="row"><div><label for="first">First name</label><input type="text" id="first" placeholder="Ryan" autocomplete="off"><span class="err" id="e-first"></span></div>
-<div><label for="last">Last name</label><input type="text" id="last" placeholder="James" autocomplete="off"><span class="err" id="e-last"></span></div></div>
-<label for="pro">Pronouns <span>(optional)</span></label><input type="text" id="pro" placeholder="he/him" autocomplete="off"><span class="err" id="e-pro"></span>
+<div class="row"><div><label for="first">First name</label><input type="text" id="first" placeholder="Tim" autocomplete="off"><span class="err" id="e-first"></span></div>
+<div><label for="last">Last name</label><input type="text" id="last" placeholder="Ng" autocomplete="off"><span class="err" id="e-last"></span></div></div>
+<label for="pro">Pronouns</label><input type="text" id="pro" placeholder="he/him" autocomplete="off"><span class="err" id="e-pro"></span>
 <label for="title">Job title</label><input type="text" id="title" placeholder="Nurse, RN" autocomplete="off"><span class="err" id="e-title"></span>
-<label for="email">Email</label><input type="email" id="email" placeholder="ryan@prepclinic.ca" autocomplete="off"><span class="err" id="e-email"></span>
-<label class="tg"><input type="checkbox" id="hs"> Include headshot</label>
-<div id="hsw" hidden><label for="hsu">Headshot image URL</label><input type="url" id="hsu" placeholder="https://example.com/ryan.jpg" autocomplete="off"><span class="err" id="e-hsu"></span>
-<div class="hint">Square photo, about 300×300 px, at a public https link that opens without signing in.</div></div>
+<label for="email">Email</label><input type="email" id="email" placeholder="tim@prepclinic.ca" autocomplete="off"><span class="err" id="e-email"></span>
+<label class="tg"><input type="checkbox" id="hs"> Include headshot <span>(optional)</span></label>
+<div id="hsw" hidden><label for="hsu">Headshot image URL</label><input type="url" id="hsu" placeholder="https://mcusercontent.com/…" autocomplete="off"><span class="err" id="e-hsu"></span>
+<div class="hint">Use the headshot link Tim sent you. It’s hosted on a public server so your photo shows up for everyone who receives your email. The photo should be square, about 300×300 px. Don’t have a link, or have a question? Email Tim at <a href="mailto:communications@prepclinic.ca" style="color:var(--ink);">communications@prepclinic.ca</a>.</div></div>
 </section>
 <section aria-labelledby="ph"><h2 id="ph">Preview</h2>
 <div class="card" id="prev"></div>
@@ -60,7 +60,7 @@ if(!v.last)e.last='Enter your last name.';else if(v.last.length>40)e.last='Keep 
 if(v.pro.length>30)e.pro='Keep it under 30 characters.';
 if(!v.title)e.title='Enter your job title.';else if(v.title.length>60)e.title='Keep it under 60 characters.';
 if(!v.email)e.email='Enter your work email.';else if(!/^[^\s@]+@prepclinic\.ca$/i.test(v.email))e.email='Use your @prepclinic.ca address.';
-if(v.hs){let ok=false;try{ok=new URL(v.hsu).protocol==='https:'}catch(x){}if(!v.hsu)e.hsu='Enter the link to your headshot.';else if(!ok)e.hsu='Enter a full link starting with https://';}
+if(v.hs){let ok=false;try{const u=new URL(v.hsu),h=u.hostname.toLowerCase();ok=u.protocol==='https:'&&(h==='mcusercontent.com'||h.endsWith('.mcusercontent.com'))}catch(x){}if(!v.hsu)e.hsu='Enter the link to your headshot.';else if(!ok)e.hsu='Use the link Tim sent you. It should start with https://mcusercontent.com/';}
 return e}
 function sig(v,m){
 const s=k=>m==='copy'?IMG[k].u:IMG[k].d,H=v.hs,g=H?[10,12,12,3]:[8,10,10,6],p=g[3];
@@ -71,7 +71,7 @@ const so=(k,a)=>`<td style="padding:0 4px;"><a href="${L[k]}">${ic(k,24,a)}</a><
 const cr=(k,a,c,sp)=>`<td style="padding:${p}px 6px ${p}px 0;">${ic(k,14,a)}</td><td${sp?' colspan="3"':''} style="padding:${p}px 12px ${p}px 0;">${c}</td>`;
 const lk=(h,t)=>`<a href="${h}" style="color:#1e4a7e;">${t}</a>`;
 return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;width:580px;border-collapse:collapse;"><tr><td valign="${H?'middle':'top'}" align="center" style="width:160px;padding-right:16px;"><img src="${s('logo')}" width="140" alt="The PrEP Clinic" style="display:block;border:0;margin:0 auto ${g[0]}px;"><div style="font-size:10px;line-height:14px;font-weight:bold;color:#1e4a7e;text-align:center;">TORONTO | BRAMPTON<br>OTTAWA | ONLINE</div><table cellpadding="0" cellspacing="0" border="0" align="center" style="margin:${g[1]}px auto ${g[2]}px;"><tr>${so('ig','Instagram')}${so('fb','Facebook')}${so('yt','YouTube')}</tr></table><table cellpadding="0" cellspacing="0" border="0" align="center"><tr><td align="center" bgcolor="#1e4a7e" style="background-color:#1e4a7e;background-image:linear-gradient(90deg,#36a1e1,#1e4a7e);border-radius:20px;padding:9px 16px;"><a href="${L.cta}" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;color:#ffffff;text-decoration:none;white-space:nowrap;">Start PrEP online here</a></td></tr></table></td><td valign="${H?'top':'middle'}" style="border-left:1px solid #36a1e1;padding-left:16px;">${hsx}<div style="font-size:18px;line-height:22px;font-weight:bold;color:#1e4a7e;">${nm}${v.pro?` <span style="font-size:12px;">(${esc(v.pro)})</span>`:''}</div><div style="font-size:13px;line-height:18px;color:#36a1e1;">${esc(v.title)}</div><div style="border-top:1px solid #36a1e1;margin:10px 0 12px;width:220px;"></div><table cellpadding="0" cellspacing="0" border="0" style="font-size:12px;line-height:16px;color:#1e4a7e;"><tr>${cr('ph','Phone',lk('tel:+14164201250','416.420.1250'))}<td style="padding:${p}px 6px ${p}px 0;">${ic('fx',14,'Fax')}</td><td style="padding:${p}px 0;">416.961.1250</td></tr><tr>${cr('em','Email',lk('mailto:'+esc(v.email),esc(v.email)),1)}</tr><tr>${cr('wb','Website',lk(L.web,'www.prepclinic.ca'),1)}</tr></table></td></tr><tr><td colspan="2" style="padding-top:14px;font-size:9px;line-height:12px;color:#6b7280;font-style:italic;">${DISC}</td></tr></table>`}
-function ph(i){return`<div data-ph style="width:64px;height:64px;border-radius:32px;background:#36a1e1;color:#ffffff;font-size:20px;font-weight:bold;line-height:64px;text-align:center;margin:0 0 8px;">${i||'RJ'}</div>`}
+function ph(i){return`<div data-ph style="width:64px;height:64px;border-radius:32px;background:#36a1e1;color:#ffffff;font-size:20px;font-weight:bold;line-height:64px;text-align:center;margin:0 0 8px;">${i||'TN'}</div>`}
 function sample(v){return Object.assign({},v,{first:v.first||'First',last:v.last||'Last',title:v.title||'Job title',email:v.email||'name@prepclinic.ca'})}
 function render(){const v=read(),e=errs(v);
 ids.forEach(i=>{const k=i,show=touched.has(i)&&e[k];$('e-'+i).textContent=show?e[k]:'';$(i).classList.toggle('bad',!!show);$(i).setAttribute('aria-invalid',show?'true':'false')});
